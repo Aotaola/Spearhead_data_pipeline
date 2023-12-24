@@ -1,0 +1,14 @@
+body{
+    background-color: steelblue;
+}
+.title{
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: midnightblue;
+    color: aliceblue;
+}
+.footer{
+    display: flex;
+    flex-wrap: wrap;
+    align-content: center;
+    background-color: blue;
+}
