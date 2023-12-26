@@ -15,9 +15,17 @@
             <a href="#time-spent">Time Spent on Article</a>
         </div>
         <div class = 'container'>
-            <div class = 'canvas-container'>
-                <canvas class = 'canvas'></canvas>
-            </div>
+            <h1>Article Click Counts</h1>
+            <ul>
+            {% for title, count in click_counts.items() %}
+                <li>{{ title }}: {{ count }}</li>
+                     {% endfor %}
+             </ul>
+            <!-- <div class = 'canvas-container'> -->
+                <!-- <canvas class = 'canvas'>
+                   
+                </canvas> -->
+            <!-- </div> -->
         </div>
             <div class='footer'>
                 <h3> developed by Alejandro Otaola</h3>
