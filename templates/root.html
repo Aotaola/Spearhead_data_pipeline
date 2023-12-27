@@ -17,8 +17,8 @@
         <div class = 'container'>
             <h1>Article Click Counts</h1>
             <ul>
-            {% for title, count in click_counts.items() %}
-                <li>{{ title }}: {{ count }}</li>
+            {% for article in articles %}
+                <li>{{ article.title }}: {{ article.count }}</li>
                      {% endfor %}
              </ul>
             <!-- <div class = 'canvas-container'> -->
