@@ -1,7 +1,8 @@
 from flask import Flask, request, render_template
 #import os
-import DateTime 
-from flask_sqlalchemy import SQLAlchemy
+from flask_sqlalchemy import SQLAlchemy, DateTime
+from datetime import datetime
+
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://ota:jandro96ALE@localhost/spearhead_clicks' 
@@ -21,7 +22,6 @@ class ArticleTimeSpent(db.Model):
     article_id = db.Column(db.Integer, db.ForeignKey('article_click.id'))
     time_spent = db.Column(db.Integer)
     timestamp = db.Column(db.DateTime, default=datetime.estnow)
-
 
 @app.route('/')
 def home():
@@ -55,6 +55,7 @@ def track_time():
     new_time_entry = ArticleTimeSpent.query.filter_by(article_id=article_id, time_spent=time_spent)
     db.session.add(new_time_entry)
     db.session.commit()
+
 
 if __name__ == '__main__':
     with app.app_context():
