@@ -1,12 +1,13 @@
 from flask import Flask, request, render_template
 #import os
 from flask_sqlalchemy import SQLAlchemy
-from datetime import datetime
+from datetime import datetime, timedelta
+import pandas as pd
 
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://ota:jandro96ALE@localhost/spearhead_clicks' 
-# os.environ.get('DATABASE_URL')
+app.config['SQLALCHEMY_DATABASE_URI'] ='postgresql://ota:jandro96ALE@localhost/spearhead_clicks' 
+#os.environ.get('DATABASE_URL')
 #print("Database URI:", os.environ.get('DATABASE_URL'))
 
 db = SQLAlchemy(app)
@@ -37,9 +38,48 @@ def home():
             'time_spent': total_time_spent
         })
     return render_template('root.html', articles = article_data)
+@app.route('/total_time_asc')
+def total_time_asc():
+    times = ArticleTimeSpent.query.order_by(ArticleTimeSpent.time_spent.asc().all())
+    return times
 
-# def check():
-#     print ('article check', articles = ArticleClick.query.all())
+@app.route('/total_time_desc')
+def total_time_desc():
+    times = ArticleTimeSpent.query.order_by(ArticleTimeSpent.time_spent.desc().all())
+    return times
+
+@app.route('/timestamps')
+def timestamps():
+    times = ArticleTimeSpent.query.order_by(ArticleTimeSpent.timestamp.all())
+    return times
+
+@app.route('/total_clicks_asc')
+def total_clicks_asc():
+    clicks = ArticleClick.query.order_by(ArticleClick.count.asc().all())
+    return clicks
+
+@app.route('/total_clics_desc')
+def total_clics_desc():
+    clicks = ArticleClick.query.order_by(ArticleClick.count.desc().all())
+    return clicks
+
+@app.route('/clicks_in_24_hours')
+def clicks_in_24_hours():
+    last_twenty_four_hours = datetime.utcnow() - timedelta(hours=24)
+    clicks = ArticleClick.query.filter(ArticleClick.created_at >= last_twenty_four_hours).order_by(ArticleClick.created_at).all()
+    return clicks
+
+@app.route('/clicks_in_1_week')
+def clicks_in_1_week():
+    last_7_days = datetime.utcnow() - timedelta(days=7)
+    clicks = ArticleClick.query.filter(ArticleClick.created_at >= last_7_days).order_by(ArticleClick.created_at).all()
+    return clicks
+
+@app.route('/clicks_in_30_days')
+def clicks_in_30_days():
+    thirty_days = datetime.utcnow() - timedelta(days=30)
+    clicks = ArticleClick.query.filter(ArticleClick.created_at >= thirty_days).order_by(ArticleClick.created_at).all()
+    return clicks
 
 @app.route('/track_click', methods=['POST'])
 def track_click():
