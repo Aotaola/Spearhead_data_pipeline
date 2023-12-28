@@ -1,0 +1,8 @@
+<div class = 'container'>
+    <h1>Article Click Counts</h1>
+    <ul>
+    {% for article in articles %}
+        <li>{{ article.title }}: {{ article.count }}</li>
+             {% endfor %}
+     </ul>
+</div>

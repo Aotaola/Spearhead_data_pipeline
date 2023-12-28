@@ -1,6 +1,6 @@
 from flask import Flask, request, render_template
 #import os
-from flask_sqlalchemy import SQLAlchemy, DateTime
+from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
 
 
@@ -18,15 +18,25 @@ class ArticleClick(db.Model):
     count = db.Column(db.Integer, default=0)
 
 class ArticleTimeSpent(db.Model):
-    id = db.Column(db.Integer, primary_key=True, unique=True, nullable=False)
-    article_id = db.Column(db.Integer, db.ForeignKey('article_click.id'))
-    time_spent = db.Column(db.Integer)
-    timestamp = db.Column(db.DateTime, default=datetime.estnow)
+    id = db.Column(db.Integer, primary_key=True)
+    article_id = db.Column(db.Integer, db.ForeignKey('article_click.id'), nullable=False)
+    time_spent = db.Column(db.Integer, nullable=False)
+    timestamp = db.Column(db.DateTime, default=datetime.utcnow)
 
 @app.route('/')
 def home():
     articles = ArticleClick.query.all()
-    return render_template('root.html', articles = articles)
+    times = ArticleTimeSpent.query.all()
+
+    article_data = []
+    for article in articles:
+        total_time_spent = sum(time.time_spent for time in times if time.article_id == article.id)
+        article_data.append({
+            'title': article.title,
+            'count': article.count,
+            'time_spent': total_time_spent
+        })
+    return render_template('root.html', articles = article_data)
 
 # def check():
 #     print ('article check', articles = ArticleClick.query.all())
@@ -52,9 +62,14 @@ def track_time():
     article_id = data.get('article_id')
     time_spent = data.get('time_spent')
 
-    new_time_entry = ArticleTimeSpent.query.filter_by(article_id=article_id, time_spent=time_spent)
-    db.session.add(new_time_entry)
-    db.session.commit()
+    if article_id is not None and time_spent is not None:
+
+        new_time_entry = ArticleTimeSpent(article_id=article_id, time_spent=time_spent)
+        db.session.add(new_time_entry)
+        db.session.commit()
+        return '', 204
+    else:
+        return 'Invalid data', 400
 
 
 if __name__ == '__main__':

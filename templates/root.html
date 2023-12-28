@@ -18,9 +18,10 @@
             <h1>Article Click Counts</h1>
             <ul>
             {% for article in articles %}
-                <li>{{ article.title }}: {{ article.count }}</li>
+                <li>TITLE:{{ article.title }} CLICKS: {{ article.count }} TIME SPENT: {{ article.time_spent }} SECONDS </li>
                      {% endfor %}
              </ul>
+          
             <!-- <div class = 'canvas-container'> -->
                 <!-- <canvas class = 'canvas'>
                    
