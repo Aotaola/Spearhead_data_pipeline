@@ -17,6 +17,7 @@ class ArticleClick(db.Model):
     id = db.Column(db.Integer, primary_key=True, unique=True, nullable=False)
     title = db.Column(db.String(255), unique=True, nullable=False)
     count = db.Column(db.Integer, default=0)
+    created_at = db.Column(db.DateTime, default=datetime.now)
 
 class ArticleTimeSpent(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -38,6 +39,7 @@ def home():
             'time_spent': total_time_spent
         })
     return render_template('root.html', articles = article_data)
+
 @app.route('/total_time_asc')
 def total_time_asc():
     times = ArticleTimeSpent.query.order_by(ArticleTimeSpent.time_spent.asc().all())
@@ -56,7 +58,8 @@ def timestamps():
 @app.route('/total_clicks_asc')
 def total_clicks_asc():
     clicks = ArticleClick.query.order_by(ArticleClick.count.asc().all())
-    return clicks
+    return render_template('track_time.html', clicks = clicks)
+
 
 @app.route('/total_clics_desc')
 def total_clics_desc():
@@ -67,19 +70,21 @@ def total_clics_desc():
 def clicks_in_24_hours():
     last_twenty_four_hours = datetime.utcnow() - timedelta(hours=24)
     clicks = ArticleClick.query.filter(ArticleClick.created_at >= last_twenty_four_hours).order_by(ArticleClick.created_at).all()
-    return clicks
+    return render_template('track_time.html', clicks = clicks)
+
 
 @app.route('/clicks_in_1_week')
 def clicks_in_1_week():
     last_7_days = datetime.utcnow() - timedelta(days=7)
     clicks = ArticleClick.query.filter(ArticleClick.created_at >= last_7_days).order_by(ArticleClick.created_at).all()
-    return clicks
+    return render_template('track_time.html', clicks = clicks)
 
 @app.route('/clicks_in_30_days')
 def clicks_in_30_days():
     thirty_days = datetime.utcnow() - timedelta(days=30)
     clicks = ArticleClick.query.filter(ArticleClick.created_at >= thirty_days).order_by(ArticleClick.created_at).all()
-    return clicks
+    return render_template('track_time.html', clicks = clicks)
+
 
 @app.route('/track_click', methods=['POST'])
 def track_click():
