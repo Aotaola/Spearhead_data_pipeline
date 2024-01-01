@@ -4,6 +4,7 @@
         <meta charset="UTF-8" />
         <title> SPEARHEAD DATA PIPELINE </title>
         <link rel="stylesheet" href="static/styles.css"/>
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     </head>
     <body>
         <h1 class = 'title'>Spearhead data pipeline</h1>
@@ -13,6 +14,7 @@
             <a href='/clicks_in_30_days'>Month</a>
             <a href=/total_clicks_asc>Total Views</a>
             <a href='/total_time_asc'>Time Spent on Article</a>
+            <a href='/canvas'>canvas</a>
 
         </div>
         <div class = 'container'>
@@ -22,12 +24,6 @@
                 <li>TITLE:{{ article.title }} CLICKS: {{ article.count }} TIME SPENT: {{ article.time_spent }} SECONDS </li>
                      {% endfor %}
              </ul>
-          
-            <!-- <div class = 'canvas-container'> -->
-                <!-- <canvas class = 'canvas'>
-                   
-                </canvas> -->
-            <!-- </div> -->
         </div>
             <div class='footer'>
                 <h3> developed by Alejandro Otaola</h3>

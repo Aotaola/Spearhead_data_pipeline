@@ -40,43 +40,53 @@ def home():
         })
     return render_template('root.html', articles = article_data)
 
+@app.route('/canvas')
+def graph():
+    articles = ArticleClick.query.all()
+    labels = [article.title for article in articles]
+    data_points = [article.count for article in articles]
+
+    return render_template('canvas.html', labels = labels, data_points = data_points)
+
+
 @app.route('/total_time_asc')
 def total_time_asc():
-    times = ArticleTimeSpent.query.order_by(ArticleTimeSpent.time_spent.asc().all())
+    times = ArticleTimeSpent.query.order_by(ArticleTimeSpent.time_spent).all()
     return times
 
 @app.route('/total_time_desc')
 def total_time_desc():
-    times = ArticleTimeSpent.query.order_by(ArticleTimeSpent.time_spent.desc().all())
+    times = ArticleTimeSpent.query.order_by(ArticleTimeSpent.time_spent).all()
     return times
 
 @app.route('/timestamps')
 def timestamps():
-    times = ArticleTimeSpent.query.order_by(ArticleTimeSpent.timestamp.all())
+    times = ArticleTimeSpent.query.order_by(ArticleTimeSpent.timestamp)
     return times
 
 @app.route('/total_clicks_asc')
 def total_clicks_asc():
-    clicks = ArticleClick.query.order_by(ArticleClick.count.asc().all())
+    clicks = ArticleClick.query.order_by(ArticleClick.count).all()
     return render_template('track_time.html', clicks = clicks)
 
 
 @app.route('/total_clics_desc')
 def total_clics_desc():
-    clicks = ArticleClick.query.order_by(ArticleClick.count.desc().all())
+    clicks = ArticleClick.query.order_by(ArticleClick.count)
     return clicks
 
 @app.route('/clicks_in_24_hours')
 def clicks_in_24_hours():
     last_twenty_four_hours = datetime.utcnow() - timedelta(hours=24)
     clicks = ArticleClick.query.filter(ArticleClick.created_at >= last_twenty_four_hours).order_by(ArticleClick.created_at).all()
-    return render_template('track_time.html', clicks = clicks)
+    return render_template('track_24_time.html', clicks = clicks)
+
 
 
 @app.route('/clicks_in_1_week')
 def clicks_in_1_week():
     last_7_days = datetime.utcnow() - timedelta(days=7)
-    clicks = ArticleClick.query.filter(ArticleClick.created_at >= last_7_days).order_by(ArticleClick.created_at).all()
+    clicks = ArticleClick.query.filter(ArticleClick.created_at >= last_7_days).order_by(ArticleClick.created_at)
     return render_template('track_time.html', clicks = clicks)
 
 @app.route('/clicks_in_30_days')

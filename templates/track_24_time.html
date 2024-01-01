@@ -1,0 +1,8 @@
+<div class = 'container'>
+    <h1>Article Click Counts in the past 24 hgours</h1>
+    <ul>
+    {% for click in clicks %}
+        <li>{{ click.title }} NUmber of Clicks:{{ click.count }} clicked at: {{click.created_at}}</li>
+             {% endfor %}
+     </ul>
+</div>
