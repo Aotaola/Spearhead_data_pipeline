@@ -10,32 +10,34 @@ body {
     flex-direction: column;
 }
 
-
 .container {
     justify-content: center;
     align-items: center;
     align-content: center;
     align-self: center;
     position: relative;
-    width: 80%;
-    height: 100%;
+    width: 90%;
+    height: 80%;
     overflow: hidden;
-    margin: 0;
-    padding: 0;
+    margin: 10;
+    padding: 10;
     min-height: 60vh;
     display: flex;
     flex-direction: row;  
 }
 
 .data-analysis{
+    display: flex;
     justify-content: center;
     height: 100vh;
-    width: 40%;
+    width: 70vh;
     min-height: 60vh;
 }
 #myChart {
-    width: 60vh;
-    height: 50%
+    display: flex;
+    font-family: 'Courier New', Courier, monospace;
+    font-weight: bold;
+    background-color: #333;
 }
 
 .title {

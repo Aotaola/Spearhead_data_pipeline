@@ -23,7 +23,7 @@
                     Engagement Index
                 </h2>
             </div>
-            <canvas id="myChart" ></canvas>
+            <canvas id="myChart" width=" 100vh "></canvas>
             <script>
                 const ctx = document.getElementById('myChart').getContext('2d');
                 const myChart = new Chart(ctx, {
@@ -33,16 +33,34 @@
                         datasets: [{
                             label: 'Number of Clicks',
                             data: {{ data_points | tojson }},
-                            backgroundColor: 'rgba(0, 123, 255, 0.5)',
-                            color: 'red',
+                            backgroundColor: 'red',
                             borderColor: 'rgba(0, 123, 255, 1)',
                             borderWidth: 1
-                        }]
+                            yAxisID: 'y-axis-clicks'
+                        },
+                    {
+                        label: 'Time spent in article(in seconds)',
+                        data: {{data_points.time_spent | tojson }},
+                        backgroundColor: 'blue',
+                        borderColor: 'white',
+                        borderWidth: 1,
+                        yAxisID: 'y-axis-time'
+                    }]
                     },
                     options: {
                         scales: {
                             y: {
-                                beginAtZero: true
+                                beginAtZero: true,
+                                position: 'left',
+                                id: 'y-axis-time'
+                            },
+                            'y-axis-time':{
+                                beginAtZero: true,
+                                position: 'right',
+                                id: 'y-axis-time',
+                                grid:{
+                                    drawOnChartArea: false
+                                }
                             }
                         }
                     }

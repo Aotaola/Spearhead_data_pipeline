@@ -31,15 +31,28 @@ def home():
     times = ArticleTimeSpent.query.all()
 
     article_data = []
+    labels = []
+    counts = []
+    time_spent_data = []
+
     for article in articles:
         total_time_spent = sum(time.time_spent for time in times if time.article_id == article.id)
+
+        labels.append(article.title)
+        counts.append(article.count)
+        time_spent_data.append(total_time_spent)
+
         article_data.append({
             'title': article.title,
             'count': article.count,
             'time_spent': total_time_spent
         })
-        labels = [article.title for article in articles]
-        data_points =[article.count for article in articles]
+        
+    data_points = {
+        'counts': counts,
+        'time_spent': time_spent_data
+    }
+    
     return render_template('root.html', data_points = data_points, labels = labels)
 
 @app.route('/canvas')
