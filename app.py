@@ -38,8 +38,9 @@ def home():
             'count': article.count,
             'time_spent': total_time_spent
         })
-        labels = ['title', 'count', 'time_spent']
-    return render_template('root.html', articles = article_data, labels = labels)
+        labels = [article.title for article in articles]
+        data_points =[article.count for article in articles]
+    return render_template('root.html', data_points = data_points, labels = labels)
 
 @app.route('/canvas')
 def graph():

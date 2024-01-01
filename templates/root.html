@@ -18,13 +18,12 @@
 
         </div>
         <div class = 'container'>
-            <!-- <h1>Article Click Counts</h1>
-            <ul>
-            {% for article in articles %}
-                <li>TITLE:{{ article.title }} CLICKS: {{ article.count }} TIME SPENT: {{ article.time_spent }} SECONDS </li>
-                     {% endfor %}
-             </ul> -->
-            <canvas id="myChart" width="100" height="100"></canvas>
+            <div class = 'data-analysis'>
+                <h2 class = 'annoucement'>
+                    Engagement Index
+                </h2>
+            </div>
+            <canvas id="myChart" ></canvas>
             <script>
                 const ctx = document.getElementById('myChart').getContext('2d');
                 const myChart = new Chart(ctx, {
@@ -33,8 +32,7 @@
                         labels: {{ labels | tojson }},
                         datasets: [{
                             label: 'Number of Clicks',
-                            label: 'time spent on article',
-                            data: {{ articles | tojson }},
+                            data: {{ data_points | tojson }},
                             backgroundColor: 'rgba(0, 123, 255, 0.5)',
                             color: 'red',
                             borderColor: 'rgba(0, 123, 255, 1)',
