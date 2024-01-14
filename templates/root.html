@@ -24,7 +24,7 @@
                 </h2>
 
             </div>
-            <canvas id="myChart" width=" 80vh "></canvas>
+            <canvas id="myChart" ></canvas>
             <script>
                 const ctx = document.getElementById('myChart').getContext('2d');
                 const myChart = new Chart(ctx, {
@@ -34,7 +34,7 @@
                         datasets: [
                         {
                             label: 'Number of Clicks',
-                            data: {{ data_points | tojson }},
+                            data: {{ data_points.count | tojson }},
                             backgroundColor: 'red',
                             borderColor: 'rgba(0, 123, 255, 1)',
                             borderWidth: 1,
@@ -42,7 +42,7 @@
                         },
                         {
                             label: 'Time spent in article(in seconds)',
-                            data: {{data_points | tojson }},
+                            data: {{data_points.time_spent | tojson }},
                             backgroundColor: 'blue',
                             borderColor: 'white',
                             borderWidth: 1,

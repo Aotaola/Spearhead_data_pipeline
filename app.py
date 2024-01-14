@@ -49,7 +49,11 @@ def home():
             'time_spent': total_time_spent/article.count
         })
 
-    data = article_data.filter(article)
+        data = {
+            'count': counts,
+            'time_spent': time_spent_data,
+        }
+
             
     return render_template('root.html', data_points = data, labels = labels)
 

@@ -3,7 +3,7 @@ body {
     flex-direction: column;
     justify-content: space-around;
     font-family: Arial, sans-serif;
-    background-color: #f4f4f4;
+    background-color: #333;
     color: #333;
     line-height: 1.6;
     margin: 0;
@@ -27,27 +27,28 @@ body {
     min-height: 60vh;
 }
 
-.announcement {
-    width: 100%
-}
 
 .data-analysis{
     display: flex; 
     flex-direction: column; 
     justify-content: center;
-    height: 90%;
+    height: 100%;
     width: 100%;
-    background-color: #f2f2f2; /* Set a background color */
+    background-color: aliceblue; /* Set a background color */
     padding: 20px; /* Add padding for spacing */
     border-radius: 8px; /* Add rounded corners */
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Add a subtle box shadow */
 }
 
-.annoucement {
+
+.announcement {
+    height: 100%;
+    width: 100%;
     color: #333; /* Set text color */
     font-size: 24px; /* Set font size */
     margin-bottom: 10px; /* Add margin below the heading */
 }
+
 
 #myChart {
     /* display: flex; */
