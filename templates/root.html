@@ -22,30 +22,32 @@
                 <h2 class = 'annoucement'>
                     Engagement Index
                 </h2>
+
             </div>
-            <canvas id="myChart" width=" 100vh "></canvas>
+            <canvas id="myChart" width=" 80vh "></canvas>
             <script>
                 const ctx = document.getElementById('myChart').getContext('2d');
                 const myChart = new Chart(ctx, {
                     type: 'bar',
                     data: {
                         labels: {{ labels | tojson }},
-                        datasets: [{
+                        datasets: [
+                        {
                             label: 'Number of Clicks',
                             data: {{ data_points | tojson }},
                             backgroundColor: 'red',
                             borderColor: 'rgba(0, 123, 255, 1)',
-                            borderWidth: 1
-                            yAxisID: 'y-axis-clicks'
+                            borderWidth: 1,
+                            yAxisID: 'y-axis-clicks',
                         },
-                    {
-                        label: 'Time spent in article(in seconds)',
-                        data: {{data_points.time_spent | tojson }},
-                        backgroundColor: 'blue',
-                        borderColor: 'white',
-                        borderWidth: 1,
-                        yAxisID: 'y-axis-time'
-                    }]
+                        {
+                            label: 'Time spent in article(in seconds)',
+                            data: {{data_points | tojson }},
+                            backgroundColor: 'blue',
+                            borderColor: 'white',
+                            borderWidth: 1,
+                            yAxisID: 'y-axis-time'
+                        }],
                     },
                     options: {
                         scales: {
@@ -65,10 +67,11 @@
                         }
                     }
                 });
+                console.log( {{ data_points | tojson }})
             </script>
         </div>
-            <!-- <div class='footer'>
-                <h3> developed by Alejandro Otaola</h3>
-            </div> -->
+        <div class='footer'>
+            <h3> developed by Alejandro Otaola</h3>
+        </div>
     </body>
 </html>

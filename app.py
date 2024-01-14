@@ -36,24 +36,22 @@ def home():
     time_spent_data = []
 
     for article in articles:
-        total_time_spent = sum(time.time_spent for time in times if time.article_id == article.id)
+        total_time_spent = sum(time.time_spent for time in times if time.article_id == article.id) / article.count
 
         labels.append(article.title)
         counts.append(article.count)
-        time_spent_data.append(total_time_spent)
+        time_spent_data.append(total_time_spent/article.count)
 
         article_data.append({
             'title': article.title,
+            'timestamp': article.created_at,
             'count': article.count,
-            'time_spent': total_time_spent
+            'time_spent': total_time_spent/article.count
         })
-        
-    data_points = {
-        'counts': counts,
-        'time_spent': time_spent_data
-    }
-    
-    return render_template('root.html', data_points = data_points, labels = labels)
+
+    data = article_data.filter(article)
+            
+    return render_template('root.html', data_points = data, labels = labels)
 
 @app.route('/canvas')
 def graph():
